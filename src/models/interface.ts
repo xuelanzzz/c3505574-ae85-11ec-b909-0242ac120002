@@ -26,19 +26,11 @@ export interface Question {
 
 export interface Config {
   options: Option[];
-  key:     Key;
+  key:     string;
   hint:    string;
 }
-
-export enum Key {
-  Option1 = "option1",
-  Option2 = "option2",
-  Option3 = "option3",
-  Option4 = "option4",
-}
-
 export interface Option {
-  id:    Key;
+  id:    string;
   label: Label;
   value: string;
 }

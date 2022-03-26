@@ -6,10 +6,10 @@ export class CliCommandHandler {
 
   public handle(command: CliCommand) {
     this.validateCommand(command);
-    console.log(command);
     const reportFactory = new ReportGeneratorFactory();
     const generator = reportFactory.getReportGenerator(command.reportType);
-    generator.generateReport(command.studentId);
+    const result = generator.generateReport(command.studentId);
+    console.log(result);
   }
 
   private validateCommand(command: CliCommand): void {
