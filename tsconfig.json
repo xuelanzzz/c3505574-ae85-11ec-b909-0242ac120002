@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "outDir": "./build",
+    "importHelpers": false,
+    // "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+  },
+}
+// {
+//   "compilerOptions": {
+//     "strict": true,
+//     "target": "es2016",
+//     "module": "commonjs",
+//     "moduleResolution": "node",
+//     "lib": ["esnext"],
+//     "allowSyntheticDefaultImports": true,
+//     "esModuleInterop": true,
+//     "noImplicitAny": true,
+//     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+//     "strictPropertyInitialization": false,
+//     "baseUrl": ".",
+//     "rootDir": "src/",
+//     "outDir": "build/",
+//     "sourceMap": true,
+//     "declaration": true
+//   },
+//   "include": ["src/**/*"],
+//   "exclude": ["**/*.test.ts", "src/__tests__", "node_modules", "dist"]
+// }
