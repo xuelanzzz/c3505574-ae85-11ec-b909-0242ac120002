@@ -1,45 +1,32 @@
 import dayjs from "dayjs";
-import { DataStore } from "../services/data.store";
 import { ReportGenerator } from "./report-generator";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {Assessment, Question, Response, Student} from "../models/interface";
 
 export class DiagnosticReporter extends ReportGenerator {
-  constructor() {
-    super();
+  constructor(protected studentId: string) {
+    super(studentId);
     dayjs.extend(customParseFormat);
   }
 
-  public generateReport(studentId: string): string {
-    const errors = [];
-    const dataStore = DataStore.getInstance();
-    const responses = dataStore.getResponses();
-    const questions = dataStore.getQuestions();
-
-    const student = dataStore.getStudents().find((stu) => stu.id === studentId);
-    if (!student) {
-      throw new Error(`Can\'t find student ${studentId}`);
-    }
-
-    const studentLatestResponse = responses.find(
-      (response) => response.student.id === student.id && response.completed
+  public generateReport(): string {
+    const studentLatestResponse = this.responses.find(
+      (response) => response.student.id === this.student.id && response.completed
     );
     if (!studentLatestResponse) {
-      throw new Error(`Can\'t find response for student ${student.id}`);
+      throw new Error(`Can\'t find response for student ${this.student.id}`);
     }
 
-    const assessment = dataStore
-      .getAssessments()
-      .find(
+    const assessment = this.assessments.find(
         (assessment) => assessment.id === studentLatestResponse.assessmentId
       );
     if (!assessment) {
       throw new Error(
-        `Can\'t find assessment ${studentLatestResponse.assessmentId} for student ${student.id}`
+        `Can\'t find assessment ${studentLatestResponse.assessmentId} for student ${this.student.id}`
       );
     }
 
-      const resultsByStrand = this.getDiagnosticResults(studentLatestResponse, questions);
+      const resultsByStrand = this.getDiagnosticResults(studentLatestResponse, this.questions);
       const overallResult = Object.keys(resultsByStrand).reduce(
       (prev, curr) => {
         prev.correct = prev.correct + resultsByStrand[curr].correct;
@@ -52,7 +39,7 @@ export class DiagnosticReporter extends ReportGenerator {
       }
     );
     return this.getDiagnosticOutput(
-      student,
+      this.student,
       assessment,
       studentLatestResponse,
       overallResult,
@@ -67,7 +54,7 @@ export class DiagnosticReporter extends ReportGenerator {
                 correct: number;
             };
         } = {};
-        studentLatestResponse?.responses.forEach((response) => {
+        studentLatestResponse.responses.forEach((response) => {
             const question = questions.find(
                 (question) => question.id === response.questionId
             );
@@ -76,7 +63,7 @@ export class DiagnosticReporter extends ReportGenerator {
                     resultsByStrand[question.strand].total++;
                     resultsByStrand[question.strand].correct =
                         response.response === question.config.key
-                            ? resultsByStrand[question.strand].correct++
+                            ? resultsByStrand[question.strand].correct + 1
                             : resultsByStrand[question.strand].correct;
                 } else {
                     resultsByStrand[question.strand] = {

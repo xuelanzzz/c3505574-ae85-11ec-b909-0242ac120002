@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import yargsInteractive, { Option } from 'yargs-interactive';
 import { CliCommandHandler } from './cli-command-handler';
 import { errorHandler } from './error-handler';
 import { CliCommand } from './models/interface';
-
 
 const startCli = () => {
     const options: Option = {
@@ -32,6 +33,8 @@ const startCli = () => {
             }
         });
 }
+dayjs.extend(isSameOrAfter);
+dayjs.extend(customParseFormat);
 startCli();
 
 

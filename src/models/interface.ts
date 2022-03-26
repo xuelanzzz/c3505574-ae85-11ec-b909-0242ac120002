@@ -61,14 +61,7 @@ export interface Response {
 
 export interface ResponseElement {
   questionId: string;
-  response:   ResponseEnum;
-}
-
-export enum ResponseEnum {
-  Option1 = "option1",
-  Option2 = "option2",
-  Option3 = "option3",
-  Option4 = "option4",
+  response:   string;
 }
 
 export interface Results {

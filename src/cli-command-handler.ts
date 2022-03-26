@@ -6,9 +6,9 @@ export class CliCommandHandler {
 
   public handle(command: CliCommand) {
     this.validateCommand(command);
-    const reportFactory = new ReportGeneratorFactory();
+    const reportFactory = new ReportGeneratorFactory(command.studentId);
     const generator = reportFactory.getReportGenerator(command.reportType);
-    const result = generator.generateReport(command.studentId);
+    const result = generator.generateReport();
     console.log(result);
   }
 
