@@ -15,7 +15,7 @@ export class DiagnosticReporter extends ReportGenerator {
       (response) => response.student.id === this.student.id && response.completed
     );
     if (!studentLatestResponse) {
-      throw new Error(`Can\'t find response for student ${this.student.id}`);
+      throw new Error(`Can't find response for student ${this.student.id}`);
     }
 
     const assessment = this.assessments.find(
@@ -23,7 +23,7 @@ export class DiagnosticReporter extends ReportGenerator {
       );
     if (!assessment) {
       throw new Error(
-        `Can\'t find assessment ${studentLatestResponse.assessmentId} for student ${this.student.id}`
+        `Can't find assessment ${studentLatestResponse.assessmentId} for student ${this.student.id}`
       );
     }
 

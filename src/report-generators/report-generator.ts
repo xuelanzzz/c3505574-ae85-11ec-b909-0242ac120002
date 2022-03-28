@@ -14,7 +14,7 @@ export class ReportGenerator {
     this.students = this.dataStore.getStudents();
     const studentIdx = this.students.findIndex(student => student.id === studentId);
     if (studentIdx < 0) {
-      throw new Error(`Can\'t find student ${studentId}`);
+      throw new Error(`Can't find student ${studentId}`);
     }
     this.student = this.students[studentIdx];
     this.assessments = this.dataStore.getAssessments();

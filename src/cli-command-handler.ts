@@ -14,8 +14,7 @@ export class CliCommandHandler {
 
   private validateCommand(command: CliCommand): void {
     const errors = [];
-    if (command.reportType in ReportType) {
-    } else {
+    if (!(command.reportType in ReportType)) {
       errors.push(new Error("Invalid report type"));
     }
 
