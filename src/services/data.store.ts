@@ -1,5 +1,4 @@
 import { Assessment, Question, Student, Response } from "../models/interface";
-import dayjs from "dayjs";
 import {sortDateDesc} from "../utils";
 /**
  * Singleton Data Store service
@@ -41,16 +40,6 @@ export class DataStore {
   public getResponses(sort = true): Response[] {
     return sort?
         this.responses.sort((r1, r2) => sortDateDesc(r1.completed, r2.completed))
-      // ? this.responses.sort((r1, r2) => {
-      //     if (!r1.completed || !r2.completed) {
-      //       return 0;
-      //     }
-      //     return dayjs(r1.completed, "DD/MM/YYYY HH:mm:ss").isSameOrAfter(
-      //       dayjs(r2.completed, "DD/MM/YYYY HH:mm:ss")
-      //     )
-      //       ? -1
-      //       : 1;
-      //   })
       : this.responses;
   }
 }
